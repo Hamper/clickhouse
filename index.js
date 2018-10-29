@@ -545,12 +545,9 @@ class ClickHouse {
 
 					reqParams['formData'] = formData;
 				}
-			} else if (data && query.match(/^insert/i)) {
-				reqParams['url']  = me.url + '?query=' + encodeURIComponent(query + ' FORMAT TabSeparated') + '&' + querystring.stringify(me.opts.config);
-
-				if (data) {
-					reqParams['body'] = me._getBodyForInsert(query, data);
-				}
+			} else if (query.match(/^insert/i)) {
+				reqParams['url']  = me.url + '?' + querystring.stringify(me.opts.config);
+				reqParams['body'] = query
 			} else {
 				reqParams['url']  = me.url + '?query=' + encodeURIComponent(query) + '&' + querystring.stringify(me.opts.config);
 			}
